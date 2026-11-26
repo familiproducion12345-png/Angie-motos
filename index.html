@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0a0a0b">
+<title>Taller de Motos · Repuestos y Ventas</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'%3E%3Ccircle cx='20' cy='20' r='17' fill='%230a0a0b' stroke='%23e11d1d' stroke-width='4'/%3E%3Ccircle cx='20' cy='20' r='5' fill='%23e11d1d'/%3E%3C/svg%3E">
+<style>
+:root{--bg:#0a0a0b;--p1:#141416;--p2:#1c1c1f;--p3:#26262a;--line:#2e2e33;--tx:#f0f0f1;--mu:#92929a;--red:#e11d1d;--red2:#ff3b3b;--reddk:#8f1010;--r:12px}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font:15px/1.45 "Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;padding-bottom:90px}
+h1,h2,h3,h4{margin:0}
+h2{font-size:20px;text-transform:uppercase;letter-spacing:.05em;font-weight:800}
+button,input,select{font:inherit;color:inherit}
+.ic{flex:none;vertical-align:-3px}
+.muted{color:var(--mu)}
+.r{text-align:right}
+
+/* Header */
+#top{position:sticky;top:0;z-index:30;background:#000;border-bottom:3px solid var(--red);display:flex;align-items:center;gap:16px;padding:10px 18px}
+#top::after{content:"";position:absolute;left:0;right:0;bottom:-7px;height:3px;background:var(--p3)}
+.brandbox{display:flex;align-items:center;gap:10px;min-width:0}
+.brandbox h1{font-size:18px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34vw}
+.brandbox small{display:block;color:var(--mu);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+#tabs{display:flex;gap:4px;margin:0 auto}
+.tab{position:relative;display:flex;align-items:center;gap:7px;background:none;border:0;border-radius:9px;padding:9px 14px;cursor:pointer;color:var(--mu);font-weight:700;letter-spacing:.03em}
+.tab:hover{color:var(--tx);background:var(--p2)}
+.tab.on{color:#fff;background:var(--red)}
+.bdg{font-style:normal;background:#fff;color:var(--red);font-size:11px;font-weight:800;border-radius:99px;padding:1px 6px;margin-left:2px}
+.tab:not(.on) .bdg{background:var(--red);color:#fff}
+
+/* Banners */
+#banner{display:flex;flex-direction:column;gap:6px;max-width:1180px;margin:14px auto 0;padding:0 18px}
+.bnr{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--p2);border:1px solid var(--reddk);border-left:4px solid var(--red);border-radius:10px;padding:9px 14px;font-size:14px}
+
+/* Layout */
+.wrap{max-width:1180px;margin:0 auto;padding:20px 18px}
+.two{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;align-items:start}
+.head-row{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.btnrow{display:flex;gap:8px;flex-wrap:wrap}
+.card{background:var(--p1);border:1px solid var(--line);border-radius:var(--r);padding:14px}
+.empty{padding:34px 18px;text-align:center;color:var(--mu);border:1px dashed var(--line);border-radius:var(--r);background:var(--p1)}
+.empty.small{padding:18px;margin:10px 0}
+.empty b{color:var(--tx)}
+.empty ol{text-align:left;display:inline-block;margin:10px 0 0;padding-left:20px}
+
+/* Controls */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:7px;background:var(--p3);border:1px solid var(--line);border-radius:10px;padding:9px 15px;cursor:pointer;font-weight:700;transition:.12s}
+.btn:hover{border-color:#55555c;background:#2f2f34}
+.btn.red{background:var(--red);border-color:var(--red);color:#fff}
+.btn.red:hover{background:var(--red2);border-color:var(--red2)}
+.btn.ghost{background:none}
+.btn.sm{padding:6px 11px;font-size:13px;border-radius:8px}
+.btn.big{padding:14px 18px;font-size:17px;width:100%}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.icbtn{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;background:var(--p3);border:1px solid var(--line);border-radius:8px;cursor:pointer;padding:0 6px;font-weight:800}
+.icbtn:hover{border-color:var(--red);color:var(--red2)}
+.inp{width:100%;background:#0f0f11;border:1px solid var(--line);border-radius:10px;padding:10px 12px;outline:none}
+.inp:focus{border-color:var(--red);box-shadow:0 0 0 3px rgba(225,29,29,.22)}
+.inp.big{padding:13px 14px;font-size:17px}
+.inp.huge{padding:16px 16px 16px 50px;font-size:19px;border-radius:14px;background:var(--p1)}
+.lbl,.f label{display:block;font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--mu);margin-bottom:5px}
+.err{color:var(--red2);min-height:20px;font-size:14px;margin-top:6px}
+.searchbar{position:relative;margin-bottom:12px}
+.searchbar .si{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--red2);display:flex;pointer-events:none}
+.searchbar .inp:not(.huge){padding-left:44px}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin:4px 0 12px}
+.chip{background:var(--p2);border:1px solid var(--line);border-radius:99px;padding:6px 13px;cursor:pointer;font-weight:700;font-size:13px}
+.chip small{color:var(--mu);font-weight:600;margin-left:4px}
+.chip:hover{border-color:#55555c}
+.chip.on{background:var(--red);border-color:var(--red);color:#fff}
+.chip.on small{color:#ffd0d0}
+.chk{display:inline-flex;align-items:center;gap:8px;cursor:pointer;color:var(--mu);user-select:none}
+.chk input{accent-color:var(--red);width:17px;height:17px}
+.toolbar{display:grid;grid-template-columns:1fr 220px auto auto;gap:10px;align-items:center;margin-bottom:14px}
+
+/* Product cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px;margin-top:10px}
+.pc{cursor:pointer;display:flex;flex-direction:column;gap:6px;transition:.15s}
+.pc:hover{border-color:var(--red);transform:translateY(-1px)}
+.pc h4{font-size:16px;line-height:1.3}
+.pc-top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.pc-bot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;padding-top:8px}
+.meta{display:flex;flex-wrap:wrap;gap:4px 12px;color:var(--mu);font-size:13px}
+.compat{font-size:13px;color:#c9c9ce}
+.brand{color:var(--red2);font-weight:800;font-size:12px;letter-spacing:.09em;text-transform:uppercase}
+.price{font-size:23px;font-weight:800;letter-spacing:-.01em}
+.badge{display:inline-block;font-size:12px;font-weight:800;padding:3px 9px;border-radius:99px;border:1px solid var(--line);background:var(--p2);white-space:nowrap}
+.badge.low{border-color:var(--red);color:var(--red2)}
+.badge.out{background:var(--red);border-color:var(--red);color:#fff}
+
+/* Tables */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.stat{background:var(--p1);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px;text-align:left;color:inherit}
+.stat b{display:block;font-size:24px;font-weight:800;line-height:1.15}
+.stat span{color:var(--mu);font-size:12px;font-weight:700;letter-spacing:.07em;text-transform:uppercase}
+.stat.click{cursor:pointer}
+.stat.click:hover,.stat.on{border-color:var(--red)}
+.stat.red b{color:var(--red2)}
+.bgroup{background:var(--p1);border:1px solid var(--line);border-radius:var(--r);margin-bottom:10px;overflow:hidden}
+.bgroup summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:12px 16px;background:var(--p2);border-left:4px solid var(--red)}
+.bgroup summary::-webkit-details-marker{display:none}
+.bgroup summary::after{content:"+";font-size:20px;font-weight:800;color:var(--red2);margin-left:12px}
+.bgroup[open] summary::after{content:"–"}
+.bgroup .bn{font-weight:800;font-size:17px;text-transform:uppercase;letter-spacing:.05em;margin-right:auto}
+.bgroup .bc{color:var(--mu);font-size:13px}
+.tblwrap{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;font-size:14px}
+.tbl th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mu);padding:9px 12px;border-bottom:1px solid var(--line);white-space:nowrap}
+.tbl th.r{text-align:right}
+.tbl td{padding:9px 12px;border-bottom:1px solid #212125;vertical-align:middle}
+.tbl tbody tr{cursor:pointer}
+.tbl tbody tr:hover{background:#1a1a1d}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td.r{text-align:right;white-space:nowrap}
+.tbl .acts{white-space:nowrap;text-align:right}
+.tbl .acts .icbtn{margin-left:4px}
+.tbl tr.void td{opacity:.45;text-decoration:line-through}
+.tbl tr.void td:last-child{text-decoration:none;opacity:1}
+
+/* Selling */
+.plist{display:flex;flex-direction:column;gap:6px;max-height:68vh;overflow:auto}
+.prow{display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center;background:var(--p1);border:1px solid var(--line);border-radius:10px;padding:9px 12px;cursor:pointer}
+.prow:hover{border-color:var(--red)}
+.prow.dis{opacity:.5;cursor:not-allowed}
+.prow .nm{font-weight:700}
+.prow .sub{font-size:12px;color:var(--mu)}
+.cartbox{position:sticky;top:84px}
+.cart-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.lines{display:flex;flex-direction:column;gap:6px;margin-bottom:10px;max-height:34vh;overflow:auto}
+.line{display:grid;grid-template-columns:1fr auto auto auto;gap:8px;align-items:center;padding:8px 0;border-bottom:1px solid #212125}
+.ln-name{font-weight:700;font-size:14px}
+.ln-sub{font-size:12px;color:var(--mu)}
+.qty{display:flex;align-items:center;gap:6px;font-weight:800}
+.qty span{min-width:22px;text-align:center}
+.ln-tot{font-weight:800;min-width:78px;text-align:right}
+.fgrid2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0 8px}
+.seg-row{display:flex;gap:6px;margin:8px 0}
+.seg{flex:1;background:var(--p2);border:1px solid var(--line);border-radius:9px;padding:9px 4px;font-weight:700;cursor:pointer;font-size:13px}
+.seg.on{background:var(--red);border-color:var(--red);color:#fff}
+.sumrows{margin:12px 0;border-top:1px solid var(--line);padding-top:10px}
+.sumrows div{display:flex;justify-content:space-between;padding:3px 0;color:var(--mu)}
+.sumrows .tot{color:var(--tx);font-size:26px;font-weight:800;padding-top:8px}
+.sumrows .tot span:last-child{color:var(--red2)}
+
+/* Report */
+.bars{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;align-items:end;height:150px;margin-top:6px}
+.bar{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px;cursor:pointer;background:none;border:0;padding:0;color:inherit}
+.bar i{display:block;width:100%;max-width:46px;background:var(--p3);border-radius:6px 6px 0 0;min-height:3px}
+.bar.on i{background:var(--red)}
+.bar small{font-size:11px;color:var(--mu);text-transform:capitalize}
+.bar em{font-style:normal;font-size:11px;font-weight:700}
+.datenav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.datenav .inp{width:auto}
+.dlabel{color:var(--mu);margin:8px 0 14px}
+.cols2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.sec{margin-bottom:14px}
+.sec h3{font-size:13px;letter-spacing:.09em;text-transform:uppercase;color:var(--mu);margin-bottom:10px}
+.kv{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #212125}
+.kv:last-child{border:0}
+
+/* Settings */
+.form{display:grid;gap:10px;max-width:460px}
+
+/* Modal */
+.backdrop{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:80;display:flex;align-items:center;justify-content:center;padding:14px;overflow:auto}
+.modal{background:var(--p1);border:1px solid var(--line);border-top:4px solid var(--red);border-radius:14px;width:100%;max-width:460px;max-height:94vh;overflow:auto;box-shadow:0 20px 60px rgba(0,0,0,.6)}
+.modal.wide{max-width:700px}
+.mhead{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.mhead h3{font-size:17px}
+.mbody{padding:16px 18px 18px}
+.mfoot{display:flex;justify-content:flex-end;gap:8px;margin-top:16px;flex-wrap:wrap}
+.msg{margin:4px 0}
+.fgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.fgrid .full{grid-column:1/-1}
+.radios{display:flex;gap:6px;flex-wrap:wrap}
+.radios label{flex:1;min-width:120px;text-transform:none;letter-spacing:0;font-size:14px;color:var(--tx);background:var(--p2);border:1px solid var(--line);border-radius:9px;padding:9px 10px;cursor:pointer;margin:0;display:flex;gap:7px;align-items:center}
+.radios input{accent-color:var(--red)}
+.big-price{font-size:30px;font-weight:800}
+
+/* Ticket (modal) */
+.ticket{font-family:"Courier New",monospace;font-size:13px}
+.ticket h3{text-align:center;font-size:17px;text-transform:uppercase}
+.ticket .tk-sub{text-align:center;color:var(--mu);margin-bottom:8px}
+.ticket table{width:100%;border-collapse:collapse;margin:8px 0}
+.ticket td{padding:3px 0;vertical-align:top}
+.ticket td:last-child{text-align:right;white-space:nowrap}
+.ticket .tk-line{display:flex;justify-content:space-between;padding:2px 0}
+.ticket .tk-total{font-size:18px;font-weight:800;border-top:1px dashed var(--mu);margin-top:6px;padding-top:6px}
+.ticket hr{border:0;border-top:1px dashed var(--mu);margin:8px 0}
+
+/* Toasts */
+#toasts{position:fixed;left:50%;transform:translateX(-50%);bottom:96px;z-index:100;display:flex;flex-direction:column;gap:8px;align-items:center;pointer-events:none;width:max-content;max-width:92vw}
+.toast{background:#000;border:1px solid var(--line);border-left:4px solid var(--mu);border-radius:10px;padding:10px 16px;font-weight:600;box-shadow:0 8px 30px rgba(0,0,0,.6);transition:.35s}
+.toast.err{border-left-color:var(--red)}
+.toast.ok{border-left-color:#fff}
+.toast.out{opacity:0;transform:translateY(8px)}
+
+#printArea{display:none}
+
+@media (max-width:900px){
+  .two{grid-template-columns:1fr}
+  .cartbox{position:static}
+  .toolbar{grid-template-columns:1fr 1fr}
+  .toolbar .inp:first-child{grid-column:1/-1}
+  .cols2{grid-template-columns:1fr}
+}
+@media (max-width:760px){
+  #top{padding:8px 12px;gap:10px}
+  .brandbox small{display:none}
+  .brandbox h1{font-size:15px;max-width:48vw}
+  #adminBtn{margin-left:auto}
+  #tabs{position:fixed;left:0;right:0;bottom:0;margin:0;background:#000;border-top:3px solid var(--red);display:grid;grid-template-columns:repeat(5,1fr);gap:0;padding:4px 4px calc(4px + env(safe-area-inset-bottom))}
+  .tab{flex-direction:column;gap:2px;padding:7px 2px;font-size:11px;border-radius:8px;justify-content:center}
+  .bdg{position:absolute;top:2px;right:18%}
+  .wrap{padding:14px 12px}
+  .fgrid{grid-template-columns:1fr}
+  .grid{grid-template-columns:1fr}
+  .line{grid-template-columns:1fr auto auto}
+  .line .ln-tot{grid-column:2/3}
+  #toasts{bottom:84px}
+}
+@media print{
+  @page{margin:8mm}
+  body{background:#fff!important;color:#000!important;padding:0!important}
+  body>*:not(#printArea){display:none!important}
+  #printArea{display:block!important;color:#000;font:13px/1.4 Arial,sans-serif}
+  #printArea *{color:#000!important;background:none!important;border-color:#000!important;text-decoration:none!important}
+  #printArea .ticket{font-family:"Courier New",monospace;max-width:80mm}
+  #printArea table{width:100%;border-collapse:collapse}
+  #printArea th,#printArea td{padding:3px 4px;border-bottom:1px solid #999;text-align:left}
+  #printArea td:last-child,#printArea th:last-child{text-align:right}
+  #printArea h2,#printArea h3{margin:6px 0}
+}
+</style>
+</head>
+<body>
+<header id="top">
+  <div class="brandbox">
+    <svg viewBox="0 0 40 40" width="38" height="38" aria-hidden="true"><circle cx="20" cy="20" r="17" fill="none" stroke="#e11d1d" stroke-width="4"/><circle cx="20" cy="20" r="5" fill="#e11d1d"/><path d="M20 3v12M20 25v12M3 20h12M25 20h12M8 8l9 9M23 23l9 9M32 8l-9 9M17 23l-9 9" stroke="#92929a" stroke-width="2" stroke-linecap="round"/></svg>
+    <div><h1 id="shopName">Taller de Motos</h1><small>Repuestos · Taller · Ventas</small></div>
+  </div>
+  <nav id="tabs"></nav>
+  <button id="adminBtn" class="btn sm" data-act="admin"></button>
+</header>
+<div id="banner"></div>
+<main id="main"></main>
+<div id="toasts"></div>
+<div id="modalRoot"></div>
+<div id="printArea"></div>
+
+<script>
+(function(){
+'use strict';
+
+/* ============ Utilidades ============ */
+const LS_KEY='taller_motos_v1';
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm=s=>String(s==null?'':s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const pad=n=>String(n).padStart(2,'0');
+const dKey=ts=>{const d=new Date(ts);return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate())};
+const timeStr=ts=>{const d=new Date(ts);return pad(d.getHours())+':'+pad(d.getMinutes())};
+const parseKey=k=>{const p=k.split('-').map(Number);return new Date(p[0],p[1]-1,p[2])};
+const addDays=(k,n)=>{const d=parseKey(k);d.setDate(d.getDate()+n);return dKey(d.getTime())};
+const fmtMoney=new Intl.NumberFormat('es-CO',{style:'currency',currency:'COP',maximumFractionDigits:0});
+const money=n=>fmtMoney.format(Math.round(Number(n)||0));
+const numf=new Intl.NumberFormat('es-CO');
+const num=n=>numf.format(n);
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+
+function hashPin(p){
+  let h1=0xdeadbeef,h2=0x41c6ce57;const s='tm|'+p;
+  for(let i=0;i<s.length;i++){const c=s.charCodeAt(i);h1=Math.imul(h1^c,2654435761);h2=Math.imul(h2^c,1597334677)}
+  h1=Math.imul(h1^(h1>>>16),2246822507)^Math.imul(h2^(h2>>>13),3266489909);
+  h2=Math.imul(h2^(h2>>>16),2246822507)^Math.imul(h1^(h1>>>13),3266489909);
+  return (4294967296*(2097151&h2)+(h1>>>0)).toString(36);
+}
+function parseNum(v){
+  if(v==null)return NaN;
+  let s=String(v).trim().replace(/[^\d.,\-]/g,'');
+  if(!s||s==='-')return NaN;
+  const hasDot=s.includes('.'),hasCom=s.includes(',');
+  if(hasDot&&hasCom){
+    if(s.lastIndexOf(',')>s.lastIndexOf('.'))s=s.replace(/\./g,'').replace(',','.');
+    else s=s.replace(/,/g,'');
+  }else if(hasCom){
+    if(/^-?\d{1,3}(,\d{3})+$/.test(s))s=s.replace(/,/g,'');else s=s.replace(',','.');
+  }else if(hasDot){
+    if(/^-?\d{1,3}(\.\d{3})+$/.test(s))s=s.replace(/\./g,'');
+  }
+  return Number(s);
+}
+
+const ICONS={
+  search:'<circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>',
+  plus:'<path d="M12 5v14M5 12h14"/>',
+  trash:'<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14M10 11v6M14 11v6"/>',
+  edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 013 3L7 19l-4 1 1-4z"/>',
+  lock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 018 0v4"/>',
+  unlock:'<rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 017.5-2"/>',
+  box:'<path d="M21 8l-9-5-9 5v8l9 5 9-5z"/><path d="M3 8l9 5 9-5M12 13v8"/>',
+  cart:'<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a2 2 0 002 1.6h8.1a2 2 0 002-1.6L21 8H6"/>',
+  chart:'<path d="M4 20V10M10 20V4M16 20v-8M22 20H2"/>',
+  gear:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>',
+  download:'<path d="M12 3v12M7 10l5 5 5-5M4 21h16"/>',
+  upload:'<path d="M12 15V3M7 8l5-5 5 5M4 21h16"/>',
+  print:'<path d="M6 9V3h12v6M6 18H4v-7h16v7h-2"/><rect x="6" y="14" width="12" height="7"/>',
+  x:'<path d="M6 6l12 12M18 6L6 18"/>',
+  swap:'<path d="M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/>'
+};
+const icon=(n,s)=>`<svg class="ic" width="${s||18}" height="${s||18}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ICONS[n]||''}</svg>`;
+
+/* ============ Estado y almacenamiento ============ */
+let S,storageOK=true,saveTimer=null;
+function defaults(){
+  return{v:1,
+    settings:{shop:'Taller de Motos',pinHash:hashPin('1234'),pinDefault:true,nextSale:1,nextSku:1,lastBackup:null,created:Date.now()},
+    products:[],sales:[],moves:[],cart:[],
+    cartMeta:{discount:0,customer:'',plate:'',method:'Efectivo',received:''}};
+}
+function normalizeState(o){
+  const d=defaults();
+  const s=Object.assign(d,o||{});
+  s.settings=Object.assign(defaults().settings,(o&&o.settings)||{});
+  s.cartMeta=Object.assign(defaults().cartMeta,(o&&o.cartMeta)||{});
+  ['products','sales','moves','cart'].forEach(k=>{if(!Array.isArray(s[k]))s[k]=[]});
+  return s;
+}
+function load(){
+  let raw=null;
+  try{raw=localStorage.getItem(LS_KEY)}catch(e){storageOK=false}
+  if(raw){
+    try{S=normalizeState(JSON.parse(raw));return}
+    catch(e){
+      try{localStorage.setItem(LS_KEY+'_corrupto_'+Date.now(),raw)}catch(_){}
+      alert('Los datos guardados estaban dañados. Se guardó una copia aparte y se inició en blanco. Restaura tu último respaldo desde Ajustes.');
+    }
+  }
+  S=defaults();
+}
+function save(){
+  try{localStorage.setItem(LS_KEY,JSON.stringify(S));storageOK=true}
+  catch(e){storageOK=false;toast('No se pudo guardar en este navegador. Descarga un respaldo ahora.','err')}
+}
+function saveSoon(){clearTimeout(saveTimer);saveTimer=setTimeout(save,350)}
+window.addEventListener('beforeunload',()=>{if(saveTimer){clearTimeout(saveTimer);save()}});
+
+/* ============ UI base: toasts, modales ============ */
+function toast(msg,type){
+  const t=document.createElement('div');t.className='toast '+(type||'');t.textContent=msg;
+  $('#toasts').appendChild(t);
+  setTimeout(()=>t.classList.add('out'),2600);setTimeout(()=>t.remove(),3000);
+}
+function modal(title,html,opts){
+  opts=opts||{};closeModal();
+  const root=$('#modalRoot');
+  root.innerHTML=`<div class="backdrop"><div class="modal ${opts.wide?'wide':''}" role="dialog" aria-modal="true"><div class="mhead"><h3>${esc(title)}</h3><button class="icbtn" data-close aria-label="Cerrar">${icon('x',16)}</button></div><div class="mbody">${html}</div></div></div>`;
+  const bd=$('.backdrop',root);
+  bd.addEventListener('mousedown',e=>{if(e.target===bd)closeModal()});
+  $$('[data-close]',root).forEach(b=>b.addEventListener('click',closeModal));
+  return $('.modal',root);
+}
+function closeModal(){$('#modalRoot').innerHTML=''}
+function confirmBox(title,msg,okLabel,cb){
+  const m=modal(title,`<p class="msg">${msg}</p><div class="mfoot"><button class="btn" data-close>Cancelar</button><button class="btn red" id="okBtn">${esc(okLabel)}</button></div>`);
+  $('#okBtn',m).addEventListener('click',()=>{closeModal();cb()});
+}
+function download(name,content,mime){
+  const b=new Blob([content],{type:mime});
+  const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=name;
+  document.body.appendChild(a);a.click();
+  setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},600);
+}
+function printHtml(html){$('#printArea').innerHTML=html;setTimeout(()=>window.print(),50)}
+
+/* ============ Administrador (PIN) ============ */
+let adminUntil=0,wasAdmin=false;
+const isAdmin=()=>Date.now()<adminUntil;
+function bumpAdmin(){if(isAdmin())adminUntil=Date.now()+30*60*1000}
+function requireAdmin(cb){
+  if(isAdmin()){bumpAdmin();if(cb)cb();return}
+  const m=modal('Acceso de administrador',`<form id="pinForm"><label class="lbl" for="pinIn">PIN de administrador</label><input id="pinIn" type="password" inputmode="numeric" autocomplete="off" class="inp big" placeholder="••••"><div id="pinErr" class="err"></div><div class="mfoot"><button type="button" class="btn" data-close>Cancelar</button><button class="btn red">Entrar</button></div></form>`);
+  const inp=$('#pinIn',m);setTimeout(()=>inp.focus(),30);
+  $('#pinForm',m).addEventListener('submit',e=>{
+    e.preventDefault();
+    if(hashPin(inp.value)===S.settings.pinHash){
+      adminUntil=Date.now()+30*60*1000;wasAdmin=true;closeModal();render();if(cb)cb();
+    }else{$('#pinErr',m).textContent='PIN incorrecto';inp.value='';inp.focus()}
+  });
+}
+function lockAdmin(){adminUntil=0;wasAdmin=false;render();toast('Modo administrador cerrado')}
+setInterval(()=>{if(wasAdmin&&!isAdmin()){wasAdmin=false;adminUntil=0;render();toast('Sesión de administrador cerrada por inactividad')}},20000);
+
+/* ============ Datos: productos ============ */
+const DEFAULT_CATS=['Aceites y lubricantes','Frenos','Motor','Transmisión','Eléctrico','Llantas y rines','Filtros','Suspensión','Carrocería','Accesorios','Cadenas y piñones','Tornillería'];
+const findP=id=>S.products.find(p=>p.id===id);
+const brandName=b=>(b&&String(b).trim())||'Sin marca';
+function canonBrand(input){
+  const t=String(input||'').trim().replace(/\s+/g,' ');if(!t)return '';
+  const k=norm(t);const ex=S.products.find(p=>norm(p.brand)===k);
+  return ex?ex.brand:t;
+}
+function brandsList(){
+  const m=new Map();
+  S.products.forEach(p=>{
+    const k=norm(brandName(p.brand));
+    if(!m.has(k))m.set(k,{name:brandName(p.brand),count:0,units:0});
+    const o=m.get(k);o.count++;o.units+=p.stock;
+  });
+  return [...m.values()].sort((a,b)=>a.name.localeCompare(b.name,'es'));
+}
+const stockState=p=>p.stock<=0?'out':(p.stock<=p.min?'low':'ok');
+const hayCache=new Map();
+function hay(p){
+  const k=p.id+'|'+p.updated;let h=hayCache.get(k);
+  if(h===undefined){h=norm([p.sku,p.name,p.brand,p.category,p.compat,p.loc].join(' '));hayCache.set(k,h)}
+  return h;
+}
+function searchProducts(q,o){
+  o=o||{};
+  const toks=norm(q).split(/\s+/).filter(Boolean);
+  const bk=o.brand?norm(o.brand):'';
+  const res=S.products.filter(p=>{
+    if(bk&&norm(brandName(p.brand))!==bk)return false;
+    if(o.onlyAvail&&p.stock<=0)return false;
+    if(o.state==='reponer'&&!(p.stock<=p.min))return false;
+    if(o.state==='out'&&!(p.stock<=0))return false;
+    if(toks.length){const h=hay(p);for(const t of toks)if(!h.includes(t))return false}
+    return true;
+  });
+  res.sort((a,b)=>((a.stock>0?0:1)-(b.stock>0?0:1))||a.name.localeCompare(b.name,'es'));
+  return res;
+}
+function logMove(p,type,qty,note){
+  S.moves.push({id:uid(),pid:p.id,pname:p.name,ts:Date.now(),type,qty,balance:p.stock,note:note||''});
+  if(S.moves.length>20000)S.moves.splice(0,S.moves.length-20000);
+}
+function nextSku(){
+  let sku;
+  do{sku='R-'+String(S.settings.nextSku++).padStart(4,'0')}while(S.products.some(p=>norm(p.sku)===norm(sku)));
+  return sku;
+}
+const MOVE_LABEL={entrada:'Entrada',salida:'Salida',venta:'Venta',ajuste:'Ajuste',anulacion:'Anulación'};
+
+/* ============ Estado de la interfaz ============ */
+const UI={q:'',brand:'',onlyAvail:false,limit:60,pq:'',iq:'',ibrand:'',istate:'',group:true,open:new Set(),rdate:dKey(Date.now())};
+let view='buscar';
+const TABS=[['buscar','Buscar','search'],['vender','Vender','cart'],['inventario','Inventario','box'],['reporte','Ventas','chart'],['ajustes','Ajustes','gear']];
+function setView(v){view=v;render();window.scrollTo(0,0)}
+function render(){
+  renderHeader();renderTabs();
+  ({buscar:vBuscar,vender:vVender,inventario:vInventario,reporte:vReporte,ajustes:vAjustes})[view]();
+}
+function renderHeader(){
+  $('#shopName').textContent=S.settings.shop||'Taller de Motos';
+  document.title=(S.settings.shop||'Taller de Motos')+' · Repuestos y Ventas';
+  const b=$('#adminBtn');
+  b.innerHTML=isAdmin()?`${icon('unlock',16)} Admin activo`:`${icon('lock',16)} Administrador`;
+  b.className='btn sm'+(isAdmin()?' red':'');
+  const msgs=[];
+  if(!storageOK)msgs.push(`<div class="bnr"><span><b>No se está guardando.</b> Este navegador bloquea el almacenamiento. Abre el archivo con Chrome o Edge y no uses modo incógnito.</span></div>`);
+  if(isAdmin()&&S.settings.pinDefault)msgs.push(`<div class="bnr"><span>Estás usando el PIN de fábrica (1234). Cámbialo para proteger precios, costos y el inventario.</span><button class="btn sm red" data-view="ajustes">Cambiar PIN</button></div>`);
+  if(S.products.length&&isAdmin()){
+    const lb=S.settings.lastBackup;const days=lb?Math.floor((Date.now()-lb)/864e5):null;
+    if(lb==null||days>=7)msgs.push(`<div class="bnr"><span>${lb==null?'Aún no has descargado ningún respaldo de tus datos.':'Hace '+days+' días que no descargas un respaldo.'}</span><button class="btn sm red" data-act="backup">${icon('download',14)} Descargar respaldo</button></div>`);
+  }
+  $('#banner').innerHTML=msgs.join('');
+}
+function renderTabs(){
+  $('#tabs').innerHTML=TABS.map(t=>{
+    const n=t[0]==='vender'?S.cart.reduce((a,l)=>a+l.qty,0):0;
+    return `<button class="tab ${view===t[0]?'on':''}" data-view="${t[0]}">${icon(t[2],18)}<span>${t[1]}</span>${n?`<i class="bdg">${n}</i>`:''}</button>`;
+  }).join('');
+}
+
+/* ============ Vista: Buscar ============ */
+function stockBadge(p){
+  const s=stockState(p);
+  if(s==='out')return '<span class="badge out">AGOTADO</span>';
+  if(s==='low')return `<span class="badge low">Quedan ${p.stock}</span>`;
+  return `<span class="badge">${p.stock} en stock</span>`;
+}
+function pCard(p){
+  return `<article class="card pc" data-act="detail" data-id="${p.id}">
+    <div class="pc-top"><span class="brand">${esc(brandName(p.brand))}</span>${stockBadge(p)}</div>
+    <h4>${esc(p.name)}</h4>
+    <div class="meta">${p.sku?`<span>Cód. ${esc(p.sku)}</span>`:''}${p.category?`<span>${esc(p.category)}</span>`:''}${p.loc?`<span>Ubic. ${esc(p.loc)}</span>`:''}</div>
+    ${p.compat?`<div class="compat">Para: ${esc(p.compat)}</div>`:''}
+    <div class="pc-bot"><div class="price">${money(p.price)}</div><button class="btn red sm" data-act="addcart" data-id="${p.id}" ${p.stock<=0?'disabled':''}>${icon('cart',15)} Vender</button></div>
+  </article>`;
+}
+function vBuscar(){
+  $('#main').innerHTML=`<section class="wrap">
+    <div class="searchbar"><span class="si">${icon('search',22)}</span><input id="q" class="inp huge" type="search" placeholder="Buscar repuesto, marca o moto…" value="${esc(UI.q)}" autocomplete="off"></div>
+    <div class="chips" id="brandChips"></div>
+    <label class="chk"><input type="checkbox" id="onlyAvail" ${UI.onlyAvail?'checked':''}> Mostrar solo lo que hay disponible</label>
+    <div id="resInfo" class="muted" style="margin-top:10px"></div>
+    <div id="results" class="grid"></div>
+  </section>`;
+  updateBuscar();
+  if(window.innerWidth>900&&!$('#modalRoot').innerHTML){const q=$('#q');q.focus();q.setSelectionRange(q.value.length,q.value.length)}
+}
+function updateBuscar(){
+  if(!S.products.length){
+    $('#brandChips').innerHTML='';$('#resInfo').textContent='';
+    $('#results').innerHTML=`<div class="empty" style="grid-column:1/-1"><b>Todavía no hay repuestos cargados.</b><br>Para empezar:<ol><li>Toca <b>Administrador</b> arriba a la derecha (PIN inicial: <b>1234</b>).</li><li>Ve a <b>Inventario</b> y pulsa <b>Nuevo repuesto</b>, o <b>Importar CSV</b> para subir muchos de una vez.</li></ol></div>`;
+    return;
+  }
+  const brands=brandsList();
+  $('#brandChips').innerHTML=`<button class="chip ${UI.brand?'':'on'}" data-act="chip" data-b="">Todas<small>${S.products.length}</small></button>`+
+    brands.map(b=>`<button class="chip ${norm(UI.brand)===norm(b.name)?'on':''}" data-act="chip" data-b="${esc(b.name)}">${esc(b.name)}<small>${b.count}</small></button>`).join('');
+  const res=searchProducts(UI.q,{brand:UI.brand,onlyAvail:UI.onlyAvail});
+  const shown=res.slice(0,UI.limit);
+  $('#resInfo').textContent=res.length?`${res.length} ${res.length===1?'resultado':'resultados'}`:'';
+  $('#results').innerHTML=shown.length?shown.map(pCard).join('')+(res.length>shown.length?`<div style="grid-column:1/-1;text-align:center"><button class="btn" data-act="more">Ver más (${res.length-shown.length})</button></div>`:''):
+    `<div class="empty" style="grid-column:1/-1">No encontré nada con <b>${esc(UI.q||'ese filtro')}</b>.<br>Prueba con menos palabras, solo la marca o el código.</div>`;
+}
+
+/* ============ Vista: Vender ============ */
+function cartTotals(){
+  const sub=S.cart.reduce((a,l)=>a+l.qty*l.price,0);
+  const disc=Math.min(Math.max(Number(S.cartMeta.discount)||0,0),sub);
+  return{sub,disc,total:sub-disc};
+}
+function vVender(){
+  $('#main').innerHTML=`<section class="wrap two">
+    <div>
+      <h2 style="margin-bottom:12px">Agregar a la venta</h2>
+      <div class="searchbar"><span class="si">${icon('search',20)}</span><input id="pq" class="inp big" type="search" placeholder="Buscar o escanear código…" value="${esc(UI.pq)}" autocomplete="off"></div>
+      <div id="pres" class="plist"></div>
+    </div>
+    <div><div class="card cartbox" id="cartBox"></div></div>
+  </section>`;
+  updatePicker();renderCart();
+}
+function updatePicker(){
+  const el=$('#pres');if(!el)return;
+  if(!S.products.length){el.innerHTML='<div class="empty small">No hay repuestos en el inventario todavía.</div>';return}
+  const res=searchProducts(UI.pq,{}).slice(0,40);
+  el.innerHTML=res.length?res.map(p=>`<div class="prow ${p.stock<=0?'dis':''}" data-act="addcart" data-id="${p.id}">
+    <div><div class="nm">${esc(p.name)}</div><div class="sub"><span class="brand" style="font-size:11px">${esc(brandName(p.brand))}</span>${p.sku?' · '+esc(p.sku):''}${p.loc?' · '+esc(p.loc):''}</div></div>
+    <div>${stockBadge(p)}</div><div style="font-weight:800">${money(p.price)}</div></div>`).join(''):'<div class="empty small">Sin resultados.</div>';
+}
+function renderCart(){
+  const box=$('#cartBox');if(!box)return;
+  const m=S.cartMeta;
+  box.innerHTML=`<div class="cart-head"><h2>Venta actual</h2>${S.cart.length?'<button class="btn ghost sm" data-act="cartclear">Vaciar</button>':''}</div>
+  ${S.cart.length?`<div class="lines">${S.cart.map((l,i)=>`<div class="line">
+      <div><div class="ln-name">${esc(l.name)}</div><div class="ln-sub">${l.brand?esc(l.brand)+' · ':''}${money(l.price)} c/u${l.free?' · servicio':''}</div></div>
+      <div class="qty"><button class="icbtn" data-act="qminus" data-i="${i}" aria-label="Menos">−</button><span>${l.qty}</span><button class="icbtn" data-act="qplus" data-i="${i}" aria-label="Más">+</button></div>
+      <div class="ln-tot">${money(l.qty*l.price)}</div>
+      <button class="icbtn" data-act="cartdel" data-i="${i}" aria-label="Quitar">${icon('x',14)}</button></div>`).join('')}</div>`:
+    '<div class="empty small">Aún no hay artículos. Toca un repuesto de la lista para agregarlo.</div>'}
+  <button class="btn sm" data-act="addservice">${icon('plus',14)} Mano de obra / servicio</button>
+  <div class="fgrid2"><div><label class="lbl" for="cust">Cliente (opcional)</label><input id="cust" class="inp" value="${esc(m.customer)}" autocomplete="off"></div>
+  <div><label class="lbl" for="plate">Placa de la moto</label><input id="plate" class="inp" style="text-transform:uppercase" value="${esc(m.plate)}" autocomplete="off"></div></div>
+  <label class="lbl" for="disc">Descuento ($)</label><input id="disc" class="inp" inputmode="decimal" placeholder="0" value="${m.discount?esc(m.discount):''}" autocomplete="off">
+  <div class="seg-row">${['Efectivo','Transferencia','Tarjeta'].map(x=>`<button class="seg ${m.method===x?'on':''}" data-act="pm" data-m="${x}">${x}</button>`).join('')}</div>
+  ${m.method==='Efectivo'?`<label class="lbl" for="recv">Recibido en efectivo</label><input id="recv" class="inp" inputmode="decimal" placeholder="Opcional" value="${esc(m.received)}" autocomplete="off">`:''}
+  <div class="sumrows"><div><span>Subtotal</span><span id="tSub"></span></div><div><span>Descuento</span><span id="tDisc"></span></div>${m.method==='Efectivo'?'<div><span>Cambio</span><span id="tChange"></span></div>':''}<div class="tot"><span>TOTAL</span><span id="tTotal"></span></div></div>
+  <button class="btn red big" data-act="checkout" ${S.cart.length?'':'disabled'}>Cobrar y registrar venta</button>`;
+  updateTotals();
+}
+function updateTotals(){
+  const t=cartTotals();const set=(id,v)=>{const e=$('#'+id);if(e)e.textContent=v};
+  set('tSub',money(t.sub));set('tDisc','− '+money(t.disc));set('tTotal',money(t.total));
+  const r=parseNum(S.cartMeta.received);
+  set('tChange',isNaN(r)?'—':(r>=t.total?money(r-t.total):'Faltan '+money(t.total-r)));
+}
+function addToCart(pid){
+  const p=findP(pid);if(!p)return;
+  const l=S.cart.find(x=>x.pid===pid);const cur=l?l.qty:0;
+  if(cur+1>p.stock){toast(p.stock<=0?'Sin stock de este repuesto':`Solo hay ${p.stock} en stock`,'err');return}
+  if(l)l.qty++;else S.cart.push({pid,name:p.name,brand:p.brand,sku:p.sku,qty:1,price:p.price,cost:p.cost||0});
+  save();toast('Agregado: '+p.name,'ok');renderTabs();if(view==='vender')renderCart();
+}
+function serviceForm(){
+  const m=modal('Mano de obra / servicio',`<form id="svF"><div class="f"><label>Descripción</label><input name="d" class="inp" required placeholder="Ej: Cambio de pastillas, sincronización…" autocomplete="off"></div><div class="f" style="margin-top:10px"><label>Valor ($)</label><input name="p" class="inp" required inputmode="decimal" autocomplete="off"></div><div class="mfoot"><button type="button" class="btn" data-close>Cancelar</button><button class="btn red">Agregar</button></div></form>`);
+  setTimeout(()=>m.querySelector('[name=d]').focus(),30);
+  $('#svF',m).addEventListener('submit',e=>{
+    e.preventDefault();const f=e.target;const pr=parseNum(f.p.value);
+    if(isNaN(pr)||pr<0){toast('Valor inválido','err');return}
+    S.cart.push({pid:null,name:f.d.value.trim(),brand:'',sku:'',qty:1,price:pr,cost:0,free:true});
+    save();closeModal();renderTabs();renderCart();
+  });
+}
+function checkout(){
+  if(!S.cart.length)return;
+  for(const l of S.cart){
+    if(l.pid){
+      const p=findP(l.pid);
+      if(!p){toast(`"${l.name}" ya no existe en el inventario. Quítalo de la venta.`,'err');return}
+      if(l.qty>p.stock){toast(`Stock insuficiente de "${p.name}" (hay ${p.stock})`,'err');return}
+    }
+  }
+  const t=cartTotals();const m=S.cartMeta;
+  const sale={id:uid(),num:S.settings.nextSale++,ts:Date.now(),date:dKey(Date.now()),
+    items:S.cart.map(l=>({pid:l.pid,name:l.name,brand:l.brand||'',sku:l.sku||'',qty:l.qty,price:l.price,cost:l.cost||0,free:!!l.free})),
+    subtotal:t.sub,discount:t.disc,total:t.total,method:m.method,customer:(m.customer||'').trim(),plate:(m.plate||'').trim().toUpperCase(),
+    received:m.method==='Efectivo'&&!isNaN(parseNum(m.received))?parseNum(m.received):null,void:false};
+  sale.items.forEach(it=>{
+    if(it.pid){const p=findP(it.pid);p.stock-=it.qty;p.updated=Date.now();logMove(p,'venta',-it.qty,'Venta #'+sale.num)}
+  });
+  S.sales.push(sale);S.cart=[];S.cartMeta=Object.assign(defaults().cartMeta,{method:m.method});
+  save();renderTabs();
+  if(view==='vender'){UI.pq='';vVender()}
+  ticketModal(sale,true);
+}
+function ticketHtml(s){
+  const L=(a,b,cls)=>`<div class="tk-line ${cls||''}"><span>${a}</span><span>${b}</span></div>`;
+  return `<div class="ticket"><h3>${esc(S.settings.shop)}</h3>
+  <div class="tk-sub">Venta #${String(s.num).padStart(5,'0')} · ${dKey(s.ts)} ${timeStr(s.ts)}${s.void?' · ANULADA':''}</div>
+  ${s.customer||s.plate?`<div>${s.customer?'Cliente: '+esc(s.customer):''}${s.customer&&s.plate?' · ':''}${s.plate?'Placa: '+esc(s.plate):''}</div>`:''}
+  <hr><table>${s.items.map(it=>`<tr><td>${it.qty} × ${esc(it.name)}${it.brand?' <span class="muted">('+esc(it.brand)+')</span>':''}</td><td>${money(it.qty*it.price)}</td></tr>`).join('')}</table><hr>
+  ${L('Subtotal',money(s.subtotal))}${s.discount?L('Descuento','− '+money(s.discount)):''}
+  ${L('TOTAL',money(s.total),'tk-total')}${L('Pago',esc(s.method))}
+  ${s.received!=null?L('Recibido',money(s.received))+L('Cambio',money(Math.max(0,s.received-s.total))):''}
+  <hr><div style="text-align:center">¡Gracias por su compra!</div></div>`;
+}
+function ticketModal(s,isNew){
+  const m=modal((isNew?'Venta registrada · ':'')+'#'+String(s.num).padStart(5,'0'),ticketHtml(s)+`<div class="mfoot"><button class="btn" data-close>Cerrar</button><button class="btn red" id="tkPrint">${icon('print',16)} Imprimir</button></div>`);
+  $('#tkPrint',m).addEventListener('click',()=>printHtml(ticketHtml(s)));
+}
+
+/* ============ Vista: Inventario ============ */
+function invStats(){
+  let units=0,low=0,out=0,valP=0,valC=0;
+  S.products.forEach(p=>{units+=p.stock;valP+=p.stock*p.price;valC+=p.stock*(p.cost||0);if(p.stock<=0)out++;else if(p.stock<=p.min)low++});
+  return{refs:S.products.length,units,low,out,valP,valC};
+}
+function vInventario(){
+  const st=invStats();const adm=isAdmin();
+  $('#main').innerHTML=`<section class="wrap">
+    <div class="head-row"><h2>Inventario por marca</h2><div class="btnrow">
+      <button class="btn red" data-act="newprod">${icon('plus',16)} Nuevo repuesto</button>
+      <button class="btn" data-act="import">${icon('upload',16)} Importar CSV</button>
+      <button class="btn" data-act="export">${icon('download',16)} Exportar</button>
+      <button class="btn ghost" data-act="template">Plantilla CSV</button></div></div>
+    <div class="stats">
+      <div class="stat"><b>${num(st.refs)}</b><span>Repuestos</span></div>
+      <div class="stat"><b>${num(st.units)}</b><span>Unidades</span></div>
+      <button class="stat click red ${UI.istate==='reponer'?'on':''}" data-act="istate" data-s="reponer"><b>${st.low+st.out}</b><span>Por reponer</span></button>
+      <button class="stat click red ${UI.istate==='out'?'on':''}" data-act="istate" data-s="out"><b>${st.out}</b><span>Agotados</span></button>
+      <div class="stat"><b>${adm?money(st.valP):'••••'}</b><span>Valor a precio venta</span></div>
+    </div>
+    <div class="toolbar">
+      <input id="iq" class="inp" type="search" placeholder="Filtrar por nombre, código, marca, moto…" value="${esc(UI.iq)}" autocomplete="off">
+      <select id="ibrand" class="inp"><option value="">Todas las marcas</option>${brandsList().map(b=>`<option value="${esc(b.name)}" ${norm(UI.ibrand)===norm(b.name)?'selected':''}>${esc(b.name)} (${b.count})</option>`).join('')}</select>
+      <label class="chk"><input type="checkbox" id="igroup" ${UI.group?'checked':''}> Agrupar por marca</label>
+      <span class="btnrow"><button class="btn sm ghost" data-act="expand">Abrir todo</button><button class="btn sm ghost" data-act="collapse">Cerrar todo</button></span>
+    </div>
+    ${UI.istate?`<div style="margin-bottom:10px"><button class="chip on" data-act="istate" data-s="">Filtro: ${UI.istate==='out'?'Agotados':'Por reponer'} ✕</button></div>`:''}
+    <div id="invList"></div></section>`;
+  updateInv();
+}
+function invTable(items){
+  const adm=isAdmin();
+  items=items.slice().sort((a,b)=>a.name.localeCompare(b.name,'es'));
+  return `<div class="tblwrap"><table class="tbl"><thead><tr><th>Código</th><th>Repuesto</th><th>Categoría</th><th class="r">Precio</th>${adm?'<th class="r">Costo</th>':''}<th class="r">Stock</th><th>Ubic.</th><th></th></tr></thead><tbody>
+  ${items.map(p=>`<tr data-act="detail" data-id="${p.id}"><td>${esc(p.sku)}</td><td><b>${esc(p.name)}</b>${p.compat?`<div class="muted" style="font-size:12px">${esc(p.compat)}</div>`:''}</td><td>${esc(p.category)}</td><td class="r"><b>${money(p.price)}</b></td>${adm?`<td class="r muted">${money(p.cost)}</td>`:''}<td class="r">${stockBadge(p)}</td><td>${esc(p.loc)}</td>
+  <td class="acts"><button class="icbtn" data-act="moveprod" data-id="${p.id}" title="Entrada / salida de stock">${icon('swap',15)}</button><button class="icbtn" data-act="editprod" data-id="${p.id}" title="Editar">${icon('edit',15)}</button><button class="icbtn" data-act="delprod" data-id="${p.id}" title="Eliminar">${icon('trash',15)}</button></td></tr>`).join('')}
+  </tbody></table></div>`;
+}
+function updateInv(){
+  const c=$('#invList');if(!c)return;
+  if(!S.products.length){c.innerHTML='<div class="empty"><b>El inventario está vacío.</b><br>Agrega tu primer repuesto o importa tu lista desde un archivo CSV (Excel).</div>';return}
+  const list=searchProducts(UI.iq,{brand:UI.ibrand,state:UI.istate});
+  if(!list.length){c.innerHTML='<div class="empty">Sin resultados con ese filtro.</div>';return}
+  if(!UI.group){c.innerHTML=`<div class="bgroup">${invTable(list)}</div>`;return}
+  const groups=new Map();
+  list.forEach(p=>{const k=norm(brandName(p.brand));if(!groups.has(k))groups.set(k,{name:brandName(p.brand),items:[]});groups.get(k).items.push(p)});
+  const arr=[...groups.entries()].sort((a,b)=>a[1].name.localeCompare(b[1].name,'es'));
+  const force=!!(UI.iq||UI.istate||UI.ibrand);
+  c.innerHTML=arr.map(([k,g])=>{
+    const units=g.items.reduce((a,p)=>a+p.stock,0);
+    return `<details class="bgroup" data-bk="${esc(k)}" ${(force||UI.open.has(k))?'open':''}><summary><span class="bn">${esc(g.name)}</span><span class="bc">${g.items.length} ref · ${num(units)} uds</span></summary>${invTable(g.items)}</details>`;
+  }).join('');
+}
+document.addEventListener('toggle',e=>{
+  const d=e.target;
+  if(d&&d.matches&&d.matches('details.bgroup[data-bk]')){
+    if(UI.iq||UI.istate||UI.ibrand)return;
+    const k=d.dataset.bk;if(d.open)UI.open.add(k);else UI.open.delete(k);
+  }
+},true);
+
+function productForm(id){
+  const p=id?findP(id):null;
+  const cats=[...new Set([...DEFAULT_CATS,...S.products.map(x=>x.category).filter(Boolean)])].sort((a,b)=>a.localeCompare(b,'es'));
+  const v=k=>p?esc(p[k]):'';
+  const m=modal(p?'Editar repuesto':'Nuevo repuesto',`<form id="pf" class="fgrid" autocomplete="off">
+    <div class="f full"><label>Nombre del repuesto *</label><input name="name" class="inp" required value="${v('name')}" placeholder="Ej: Pastillas de freno delanteras"></div>
+    <div class="f"><label>Marca *</label><input name="brand" class="inp" required list="dlB" value="${v('brand')}" placeholder="Yamaha, Honda, AKT, NGK…"></div>
+    <div class="f"><label>Código / SKU</label><input name="sku" class="inp" value="${v('sku')}" placeholder="Vacío = se genera solo"></div>
+    <div class="f"><label>Categoría</label><input name="category" class="inp" list="dlC" value="${v('category')}"></div>
+    <div class="f"><label>Ubicación en bodega</label><input name="loc" class="inp" value="${v('loc')}" placeholder="Estante A-3"></div>
+    <div class="f full"><label>Compatible con (motos / modelos)</label><input name="compat" class="inp" value="${v('compat')}" placeholder="Ej: Yamaha FZ 150, Honda CB 190R"></div>
+    <div class="f"><label>Precio de venta *</label><input name="price" class="inp" required inputmode="decimal" value="${p?p.price:''}"></div>
+    <div class="f"><label>Costo (lo que pagaste)</label><input name="cost" class="inp" inputmode="decimal" value="${p&&p.cost?p.cost:''}"></div>
+    <div class="f"><label>Cantidad en bodega *</label><input name="stock" class="inp" required type="number" min="0" step="1" value="${p?p.stock:''}"></div>
+    <div class="f"><label>Avisar cuando queden</label><input name="min" class="inp" type="number" min="0" step="1" value="${p?p.min:2}"></div>
+    <datalist id="dlB">${brandsList().filter(b=>b.name!=='Sin marca').map(b=>`<option value="${esc(b.name)}">`).join('')}</datalist>
+    <datalist id="dlC">${cats.map(c=>`<option value="${esc(c)}">`).join('')}</datalist>
+    <div class="mfoot full"><button type="button" class="btn" data-close>Cancelar</button><button class="btn red">${p?'Guardar cambios':'Guardar repuesto'}</button></div>
+  </form>`,{wide:true});
+  setTimeout(()=>m.querySelector('[name=name]').focus(),30);
+  $('#pf',m).addEventListener('submit',e=>{
+    e.preventDefault();const f=e.target;
+    const name=f.name.value.trim(),brand=canonBrand(f.brand.value);
+    const price=parseNum(f.price.value),cost=f.cost.value.trim()?parseNum(f.cost.value):0;
+    const stock=parseInt(f.stock.value,10),min=f.min.value===''?2:parseInt(f.min.value,10);
+    if(!name||!brand){toast('Escribe el nombre y la marca','err');return}
+    if(isNaN(price)||price<0){toast('El precio no es válido','err');return}
+    if(isNaN(cost)||cost<0){toast('El costo no es válido','err');return}
+    if(isNaN(stock)||stock<0){toast('La cantidad no es válida','err');return}
+    let sku=f.sku.value.trim();
+    if(sku&&S.products.some(x=>x.id!==id&&norm(x.sku)===norm(sku))){toast('Ya existe un repuesto con ese código','err');return}
+    const data={name,brand,category:f.category.value.trim(),compat:f.compat.value.trim(),loc:f.loc.value.trim(),price,cost,min:isNaN(min)?2:min};
+    if(p){
+      Object.assign(p,data);p.sku=sku||p.sku||nextSku();
+      if(stock!==p.stock){const diff=stock-p.stock;p.stock=stock;logMove(p,'ajuste',diff,'Corrección al editar')}
+      p.updated=Date.now();
+      toast('Cambios guardados','ok');
+    }else{
+      const np=Object.assign({id:uid(),sku:sku||nextSku(),stock,updated:Date.now()},data);
+      S.products.push(np);if(stock>0)logMove(np,'entrada',stock,'Stock inicial');
+      toast('Repuesto guardado','ok');
+    }
+    save();closeModal();render();
+  });
+}
+function moveForm(id){
+  const p=findP(id);if(!p)return;
+  const m=modal('Movimiento de stock',`<p class="msg"><b>${esc(p.name)}</b><br><span class="muted">${esc(brandName(p.brand))} · Stock actual: <b>${p.stock}</b></span></p>
+  <form id="mf"><div class="radios" style="margin:10px 0"><label><input type="radio" name="type" value="entrada" checked> Entrada (llegó mercancía)</label><label><input type="radio" name="type" value="salida"> Salida (daño / pérdida)</label><label><input type="radio" name="type" value="conteo"> Conteo físico</label></div>
+  <div class="fgrid"><div class="f"><label id="mqL">Unidades que entran</label><input name="qty" class="inp" type="number" min="0" step="1" required></div>
+  <div class="f"><label>Nota (proveedor, factura…)</label><input name="note" class="inp" autocomplete="off"></div>
+  <div class="f" id="mPr"><label>Nuevo precio de venta (opcional)</label><input name="price" class="inp" inputmode="decimal" placeholder="${p.price}"></div>
+  <div class="f" id="mCo"><label>Nuevo costo (opcional)</label><input name="cost" class="inp" inputmode="decimal" placeholder="${p.cost||0}"></div></div>
+  <div class="mfoot"><button type="button" class="btn" data-close>Cancelar</button><button class="btn red">Registrar</button></div></form>`);
+  const f=$('#mf',m);
+  const sync=()=>{const t=f.type.value;$('#mqL',m).textContent=t==='entrada'?'Unidades que entran':t==='salida'?'Unidades que salen':'Cantidad real contada';$('#mPr',m).style.display=$('#mCo',m).style.display=t==='entrada'?'':'none'};
+  $$('input[name=type]',m).forEach(r=>r.addEventListener('change',sync));sync();
+  setTimeout(()=>f.qty.focus(),30);
+  f.addEventListener('submit',e=>{
+    e.preventDefault();const t=f.type.value,q=parseInt(f.qty.value,10),note=f.note.value.trim();
+    if(isNaN(q)||q<0||(t!=='conteo'&&q===0)){toast('Escribe una cantidad válida','err');return}
+    if(t==='entrada'){
+      p.stock+=q;logMove(p,'entrada',q,note);
+      const np=parseNum(f.price.value),nc=parseNum(f.cost.value);
+      if(!isNaN(np)&&np>=0)p.price=np;if(!isNaN(nc)&&nc>=0)p.cost=nc;
+    }else if(t==='salida'){
+      if(q>p.stock){toast('No puedes sacar más de lo que hay ('+p.stock+')','err');return}
+      p.stock-=q;logMove(p,'salida',-q,note||'Salida manual');
+    }else{
+      const diff=q-p.stock;p.stock=q;logMove(p,'ajuste',diff,note||'Conteo físico');
+    }
+    p.updated=Date.now();save();closeModal();render();toast('Stock actualizado','ok');
+  });
+}
+function deleteProduct(id){
+  const p=findP(id);if(!p)return;
+  confirmBox('Eliminar repuesto',`¿Eliminar <b>${esc(p.name)}</b> (${esc(brandName(p.brand))}) del inventario? Las ventas ya registradas no se alteran.`,'Eliminar',()=>{
+    S.products=S.products.filter(x=>x.id!==id);S.moves=S.moves.filter(m=>m.pid!==id);S.cart=S.cart.filter(l=>l.pid!==id);
+    save();render();toast('Repuesto eliminado');
+  });
+}
+function detailModal(id){
+  const p=findP(id);if(!p)return;
+  const adm=isAdmin();
+  const moves=adm?S.moves.filter(m=>m.pid===id).slice(-12).reverse():[];
+  const margin=p.price>0&&p.cost?Math.round((p.price-p.cost)/p.price*100):null;
+  modal(p.name,`<div class="brand" style="margin-bottom:4px">${esc(brandName(p.brand))}</div>
+  <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap"><div class="big-price">${money(p.price)}</div>${stockBadge(p)}</div>
+  <div class="sec" style="margin-top:12px">
+    <div class="kv"><span class="muted">Disponibles</span><b>${p.stock} unidades</b></div>
+    ${p.sku?`<div class="kv"><span class="muted">Código</span><b>${esc(p.sku)}</b></div>`:''}
+    ${p.category?`<div class="kv"><span class="muted">Categoría</span><b>${esc(p.category)}</b></div>`:''}
+    ${p.compat?`<div class="kv"><span class="muted">Compatible con</span><b style="text-align:right">${esc(p.compat)}</b></div>`:''}
+    ${p.loc?`<div class="kv"><span class="muted">Ubicación</span><b>${esc(p.loc)}</b></div>`:''}
+    <div class="kv"><span class="muted">Avisar al llegar a</span><b>${p.min}</b></div>
+    ${adm?`<div class="kv"><span class="muted">Costo</span><b>${money(p.cost)}${margin!=null?' · margen '+margin+'%':''}</b></div>`:''}
+  </div>
+  ${adm&&moves.length?`<div class="sec"><h3>Últimos movimientos</h3><div class="tblwrap"><table class="tbl"><thead><tr><th>Fecha</th><th>Tipo</th><th class="r">Cant.</th><th class="r">Saldo</th><th>Nota</th></tr></thead><tbody>${moves.map(m=>`<tr style="cursor:default"><td>${dKey(m.ts)} ${timeStr(m.ts)}</td><td>${MOVE_LABEL[m.type]||m.type}</td><td class="r">${m.qty>0?'+':''}${m.qty}</td><td class="r">${m.balance}</td><td>${esc(m.note)}</td></tr>`).join('')}</tbody></table></div></div>`:''}
+  <div class="mfoot"><button class="btn" data-act="moveprod" data-id="${p.id}">${icon('swap',15)} Stock</button><button class="btn" data-act="editprod" data-id="${p.id}">${icon('edit',15)} Editar</button><button class="btn red" data-act="addcartclose" data-id="${p.id}" ${p.stock<=0?'disabled':''}>${icon('cart',15)} Vender</button></div>`);
+}
+
+/* ---- CSV ---- */
+function csvCell(v){const s=String(v==null?'':v);return /[;"\n\r]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s}
+const CSV_COLS=[['codigo','sku'],['nombre','name'],['marca','brand'],['categoria','category'],['compatibilidad','compat'],['precio','price'],['costo','cost'],['stock','stock'],['minimo','min'],['ubicacion','loc']];
+function exportInventory(){
+  const rows=[CSV_COLS.map(c=>c[0]).join(';')];
+  S.products.slice().sort((a,b)=>brandName(a.brand).localeCompare(brandName(b.brand),'es')||a.name.localeCompare(b.name,'es')).forEach(p=>rows.push(CSV_COLS.map(c=>csvCell(p[c[1]])).join(';')));
+  download('inventario-'+dKey(Date.now())+'.csv','\uFEFF'+rows.join('\r\n'),'text/csv;charset=utf-8');
+}
+function downloadTemplate(){
+  const rows=[CSV_COLS.map(c=>c[0]).join(';'),
+    'R-0001;Pastillas de freno delanteras;Yamaha;Frenos;FZ 150, FZ 2.0;38000;24000;10;3;A-1',
+    'R-0002;Bujía CR7HSA;NGK;Eléctrico;Honda CB 125, AKT 125;12000;7500;25;5;B-2',
+    'R-0003;Aceite 20W-50 1 litro;Motul;Aceites y lubricantes;Todas las motos 4 tiempos;42000;31000;18;6;C-1'];
+  download('plantilla-inventario.csv','\uFEFF'+rows.join('\r\n'),'text/csv;charset=utf-8');
+}
+function parseCSV(text){
+  text=text.replace(/^\uFEFF/,'');
+  const first=text.split(/\r?\n/)[0]||'';
+  const cnt={';':(first.match(/;/g)||[]).length,',':(first.match(/,/g)||[]).length,'\t':(first.match(/\t/g)||[]).length};
+  const delim=Object.keys(cnt).sort((a,b)=>cnt[b]-cnt[a])[0];
+  const rows=[];let row=[],cur='',q=false;
+  for(let i=0;i<text.length;i++){
+    const c=text[i];
+    if(q){if(c==='"'){if(text[i+1]==='"'){cur+='"';i++}else q=false}else cur+=c}
+    else if(c==='"')q=true;
+    else if(c===delim){row.push(cur);cur=''}
+    else if(c==='\n'||c==='\r'){if(c==='\r'&&text[i+1]==='\n')i++;row.push(cur);cur='';if(row.some(x=>x.trim()!==''))rows.push(row);row=[]}
+    else cur+=c;
+  }
+  row.push(cur);if(row.some(x=>x.trim()!==''))rows.push(row);
+  return rows;
+}
+const HEADER_ALIASES={sku:['codigo','cod','sku','referencia','ref','codigo de barras'],name:['nombre','repuesto','producto','descripcion','articulo','item'],brand:['marca','fabricante'],category:['categoria','tipo','linea','grupo'],compat:['compatibilidad','compatible','motos','moto','modelo','modelos','aplicacion','compatible con'],price:['precio','precio venta','precio de venta','pvp','valor','precio publico'],cost:['costo','precio compra','precio de compra','compra'],stock:['stock','cantidad','existencias','inventario','unidades','cant','existencia'],min:['minimo','stock minimo','min','alerta','stock min'],loc:['ubicacion','estante','posicion','ubic']};
+function mapRows(rows){
+  const head=rows[0].map(h=>norm(h).replace(/[^a-z0-9 ]/g,' ').replace(/\s+/g,' ').trim());
+  const idx={};
+  Object.keys(HEADER_ALIASES).forEach(k=>{const i=head.findIndex(h=>HEADER_ALIASES[k].includes(h));if(i>=0)idx[k]=i});
+  return idx;
+}
+function prepareImport(text){
+  const rows=parseCSV(text);
+  if(rows.length<2)return{error:'El archivo está vacío o no tiene filas de datos.'};
+  const idx=mapRows(rows);
+  if(idx.name==null)return{error:'No encontré la columna "nombre". Descarga la plantilla y copia tus datos allí.'};
+  const items=[],errors=[];const seen=new Set();
+  rows.slice(1).forEach((r,n)=>{
+    const g=k=>idx[k]==null?'':String(r[idx[k]]==null?'':r[idx[k]]).trim();
+    const name=g('name');
+    if(!name){errors.push(`Fila ${n+2}: sin nombre`);return}
+    const price=g('price')?parseNum(g('price')):0,cost=g('cost')?parseNum(g('cost')):0;
+    const stock=g('stock')?Math.round(parseNum(g('stock'))):0,min=g('min')?Math.round(parseNum(g('min'))):2;
+    if(isNaN(price)||price<0){errors.push(`Fila ${n+2} (${name}): precio inválido`);return}
+    if(isNaN(stock)||stock<0){errors.push(`Fila ${n+2} (${name}): cantidad inválida`);return}
+    const sku=g('sku');
+    if(sku){const k=norm(sku);if(seen.has(k)){errors.push(`Fila ${n+2} (${name}): código repetido en el archivo (${sku})`);return}seen.add(k)}
+    items.push({sku,name,brand:g('brand'),category:g('category'),compat:g('compat'),price,cost:isNaN(cost)||cost<0?0:cost,stock,min:isNaN(min)||min<0?2:min,loc:g('loc')});
+  });
+  return{items,errors,found:Object.keys(idx)};
+}
+function findExisting(it){
+  if(it.sku){const e=S.products.find(p=>norm(p.sku)===norm(it.sku));if(e)return e}
+  if(!it.sku){const e=S.products.find(p=>norm(p.name)===norm(it.name)&&norm(p.brand)===norm(it.brand));if(e)return e}
+  return null;
+}
+function importForm(){
+  const m=modal('Importar repuestos desde CSV',`<p class="msg muted">Sube un archivo CSV (puedes guardar tu Excel como "CSV"). Columnas: codigo, nombre, marca, categoria, compatibilidad, precio, costo, stock, minimo, ubicacion. Solo "nombre" es obligatorio. <a href="#" id="tplLink" style="color:var(--red2)">Descargar plantilla</a></p>
+  <input type="file" id="impFile" accept=".csv,.txt,text/csv" class="inp">
+  <div class="f" style="margin-top:12px"><label>Si el código ya existe</label><select id="impMode" class="inp"><option value="replace">Actualizar datos y reemplazar el stock</option><option value="add">Actualizar datos y sumar al stock actual</option><option value="skip">No tocar los que ya existen</option></select></div>
+  <div id="impPrev" style="margin-top:12px"></div>
+  <div class="mfoot"><button class="btn" data-close>Cancelar</button><button class="btn red" id="impGo" disabled>Importar</button></div>`);
+  let prepared=null;
+  $('#tplLink',m).addEventListener('click',e=>{e.preventDefault();downloadTemplate()});
+  $('#impFile',m).addEventListener('change',ev=>{
+    const file=ev.target.files[0];if(!file)return;
+    const rd=new FileReader();
+    rd.onload=()=>{
+      const bytes=new Uint8Array(rd.result);let text;
+      try{text=new TextDecoder('utf-8',{fatal:true}).decode(bytes)}catch(_){text=new TextDecoder('windows-1252').decode(bytes)}
+      prepared=prepareImport(text);const pv=$('#impPrev',m);
+      if(prepared.error){pv.innerHTML=`<div class="err">${esc(prepared.error)}</div>`;$('#impGo',m).disabled=true;return}
+      const upd=prepared.items.filter(findExisting).length;
+      pv.innerHTML=`<div class="card"><b>${prepared.items.length}</b> filas válidas: <b>${prepared.items.length-upd}</b> nuevas y <b>${upd}</b> que ya existen.${prepared.errors.length?`<div class="err" style="margin-top:8px"><b>${prepared.errors.length} filas con problemas (se omitirán):</b><br>${prepared.errors.slice(0,6).map(esc).join('<br>')}${prepared.errors.length>6?'<br>…':''}</div>`:''}</div>`;
+      $('#impGo',m).disabled=!prepared.items.length;
+    };
+    rd.readAsArrayBuffer(file);
+  });
+  $('#impGo',m).addEventListener('click',()=>{
+    if(!prepared||!prepared.items)return;
+    const mode=$('#impMode',m).value;let nw=0,up=0,sk=0;
+    prepared.items.forEach(it=>{
+      const ex=findExisting(it);
+      if(ex){
+        if(mode==='skip'){sk++;return}
+        ex.name=it.name;ex.brand=canonBrand(it.brand);ex.category=it.category||ex.category;ex.compat=it.compat||ex.compat;
+        ex.price=it.price;ex.cost=it.cost||ex.cost;ex.min=it.min;ex.loc=it.loc||ex.loc;
+        const ns=mode==='add'?ex.stock+it.stock:it.stock;
+        if(ns!==ex.stock){const d=ns-ex.stock;ex.stock=ns;logMove(ex,mode==='add'?'entrada':'ajuste',d,'Importación CSV')}
+        ex.updated=Date.now();up++;
+      }else{
+        const np={id:uid(),sku:it.sku||nextSku(),name:it.name,brand:canonBrand(it.brand),category:it.category,compat:it.compat,loc:it.loc,price:it.price,cost:it.cost,stock:it.stock,min:it.min,updated:Date.now()};
+        S.products.push(np);if(np.stock>0)logMove(np,'entrada',np.stock,'Importación CSV');nw++;
+      }
+    });
+    save();closeModal();render();
+    toast(`Importación lista: ${nw} nuevos, ${up} actualizados${sk?', '+sk+' omitidos':''}`,'ok');
+  });
+}
+
+/* ============ Vista: Ventas del día ============ */
+const salesOf=d=>S.sales.filter(s=>s.date===d);
+function sumSales(list){
+  const ok=list.filter(s=>!s.void);
+  const r={n:ok.length,total:0,profit:0,by:{Efectivo:0,Transferencia:0,Tarjeta:0},items:new Map()};
+  ok.forEach(s=>{
+    r.total+=s.total;r.by[s.method]=(r.by[s.method]||0)+s.total;
+    let pr=-(s.discount||0);
+    s.items.forEach(it=>{
+      pr+=(it.price-(it.cost||0))*it.qty;
+      const k=(it.sku||'')+'|'+it.name;const o=r.items.get(k)||{name:it.name,brand:it.brand,qty:0,amt:0};
+      o.qty+=it.qty;o.amt+=it.qty*it.price;r.items.set(k,o);
+    });
+    r.profit+=pr;
+  });
+  return r;
+}
+const dayLabel=k=>{const t=parseKey(k).toLocaleDateString('es-CO',{weekday:'long',day:'numeric',month:'long',year:'numeric'});return t.charAt(0).toUpperCase()+t.slice(1)};
+function vReporte(){
+  const adm=isAdmin();
+  const day=salesOf(UI.rdate),sm=sumSales(day);
+  const month=sumSales(S.sales.filter(s=>s.date.slice(0,7)===UI.rdate.slice(0,7)));
+  const days=[];for(let i=6;i>=0;i--){const k=addDays(UI.rdate,-i);days.push({k,t:sumSales(salesOf(k)).total})}
+  const max=Math.max(1,...days.map(d=>d.t));
+  const top=[...sm.items.values()].sort((a,b)=>b.qty-a.qty||b.amt-a.amt).slice(0,10);
+  const isToday=UI.rdate===dKey(Date.now());
+  $('#main').innerHTML=`<section class="wrap">
+    <div class="head-row"><h2>Ventas del día</h2><div class="btnrow">
+      <button class="btn" data-act="rprint">${icon('print',16)} Imprimir cierre</button>
+      <button class="btn" data-act="rexport">${icon('download',16)} Exportar día</button></div></div>
+    <div class="datenav"><button class="icbtn" data-act="rprev" aria-label="Día anterior">‹</button><input id="rdate" type="date" class="inp" value="${UI.rdate}" max="${dKey(Date.now())}"><button class="icbtn" data-act="rnext" aria-label="Día siguiente" ${isToday?'disabled':''}>›</button>${isToday?'':'<button class="btn sm" data-act="rtoday">Ir a hoy</button>'}</div>
+    <div class="dlabel">${esc(dayLabel(UI.rdate))}${isToday?' · hoy':''}</div>
+    <div class="stats">
+      <div class="stat"><b style="color:var(--red2)">${money(sm.total)}</b><span>Vendido en el día</span></div>
+      <div class="stat"><b>${sm.n}</b><span>Ventas</span></div>
+      <div class="stat"><b>${sm.n?money(sm.total/sm.n):'—'}</b><span>Venta promedio</span></div>
+      <div class="stat"><b>${adm?money(sm.profit):'••••'}</b><span>Utilidad estimada</span></div>
+      <div class="stat"><b>${money(month.total)}</b><span>Total del mes</span></div>
+    </div>
+    <div class="cols2">
+      <div class="card"><div class="sec" style="margin:0"><h3>Últimos 7 días</h3><div class="bars">${days.map(d=>`<button class="bar ${d.k===UI.rdate?'on':''}" data-act="setdate" data-d="${d.k}"><em>${d.t?money(d.t).replace(/\s?\$\s?/,'$'):''}</em><i style="height:${Math.max(2,Math.round(d.t/max*100))}%"></i><small>${parseKey(d.k).toLocaleDateString('es-CO',{weekday:'short'})}</small></button>`).join('')}</div></div></div>
+      <div class="card"><div class="sec" style="margin:0"><h3>Por forma de pago</h3>${['Efectivo','Transferencia','Tarjeta'].map(x=>`<div class="kv"><span>${x}</span><b>${money(sm.by[x]||0)}</b></div>`).join('')}</div></div>
+    </div>
+    <div class="card sec"><h3>Lo más vendido del día</h3>${top.length?`<div class="tblwrap"><table class="tbl"><thead><tr><th>Artículo</th><th>Marca</th><th class="r">Unidades</th><th class="r">Total</th></tr></thead><tbody>${top.map(t=>`<tr style="cursor:default"><td>${esc(t.name)}</td><td>${esc(t.brand)}</td><td class="r">${t.qty}</td><td class="r">${money(t.amt)}</td></tr>`).join('')}</tbody></table></div>`:'<div class="muted">Sin ventas este día.</div>'}</div>
+    <div class="card sec"><h3>Detalle de ventas</h3>${day.length?`<div class="tblwrap"><table class="tbl"><thead><tr><th>Hora</th><th>N°</th><th>Cliente / placa</th><th>Detalle</th><th>Pago</th><th class="r">Total</th><th></th></tr></thead><tbody>
+      ${day.slice().reverse().map(s=>`<tr class="${s.void?'void':''}" data-act="viewsale" data-id="${s.id}"><td>${timeStr(s.ts)}</td><td>#${String(s.num).padStart(5,'0')}</td><td>${esc([s.customer,s.plate].filter(Boolean).join(' · '))||'<span class="muted">—</span>'}</td><td>${esc(s.items.map(i=>i.qty+'× '+i.name).join(', ').slice(0,90))}</td><td>${esc(s.method)}</td><td class="r"><b>${money(s.total)}</b></td><td class="acts">${s.void?'<span class="badge out" style="text-decoration:none">ANULADA</span>':`<button class="icbtn" data-act="voidsale" data-id="${s.id}" title="Anular venta">${icon('trash',15)}</button>`}</td></tr>`).join('')}
+      </tbody></table></div>`:'<div class="muted">No hay ventas registradas este día.</div>'}</div>
+  </section>`;
+}
+function reportPrintHtml(){
+  const day=salesOf(UI.rdate),sm=sumSales(day);
+  return `<h2>${esc(S.settings.shop)} — Cierre de ventas</h2><div>${esc(dayLabel(UI.rdate))}</div>
+  <h3>Resumen</h3><table><tr><td>Ventas realizadas</td><td>${sm.n}</td></tr><tr><td>Efectivo</td><td>${money(sm.by.Efectivo||0)}</td></tr><tr><td>Transferencia</td><td>${money(sm.by.Transferencia||0)}</td></tr><tr><td>Tarjeta</td><td>${money(sm.by.Tarjeta||0)}</td></tr><tr><td><b>TOTAL DEL DÍA</b></td><td><b>${money(sm.total)}</b></td></tr></table>
+  <h3>Detalle</h3><table><thead><tr><th>Hora</th><th>N°</th><th>Detalle</th><th>Pago</th><th>Total</th></tr></thead><tbody>${day.filter(s=>!s.void).map(s=>`<tr><td>${timeStr(s.ts)}</td><td>#${String(s.num).padStart(5,'0')}</td><td>${esc(s.items.map(i=>i.qty+'× '+i.name).join(', '))}</td><td>${esc(s.method)}</td><td>${money(s.total)}</td></tr>`).join('')}</tbody></table>`;
+}
+function exportDay(){
+  const rows=['fecha;hora;numero;cliente;placa;articulo;marca;codigo;cantidad;precio;subtotal;pago;estado'];
+  salesOf(UI.rdate).forEach(s=>s.items.forEach(it=>rows.push([s.date,timeStr(s.ts),s.num,s.customer,s.plate,it.name,it.brand,it.sku,it.qty,it.price,it.qty*it.price,s.method,s.void?'ANULADA':'OK'].map(csvCell).join(';'))));
+  download('ventas-'+UI.rdate+'.csv','\uFEFF'+rows.join('\r\n'),'text/csv;charset=utf-8');
+}
+function exportAllSales(){
+  const rows=['fecha;hora;numero;cliente;placa;articulo;marca;codigo;cantidad;precio;subtotal;descuento_venta;total_venta;pago;estado'];
+  S.sales.forEach(s=>s.items.forEach(it=>rows.push([s.date,timeStr(s.ts),s.num,s.customer,s.plate,it.name,it.brand,it.sku,it.qty,it.price,it.qty*it.price,s.discount||0,s.total,s.method,s.void?'ANULADA':'OK'].map(csvCell).join(';'))));
+  download('ventas-historial-'+dKey(Date.now())+'.csv','\uFEFF'+rows.join('\r\n'),'text/csv;charset=utf-8');
+}
+function voidSale(id){
+  const s=S.sales.find(x=>x.id===id);if(!s||s.void)return;
+  confirmBox('Anular venta',`¿Anular la venta <b>#${String(s.num).padStart(5,'0')}</b> por <b>${money(s.total)}</b>? Los repuestos vuelven al inventario y la venta deja de sumar en los totales.`,'Anular venta',()=>{
+    s.items.forEach(it=>{if(it.pid){const p=findP(it.pid);if(p){p.stock+=it.qty;p.updated=Date.now();logMove(p,'anulacion',it.qty,'Anulación venta #'+s.num)}}});
+    s.void=true;s.voidTs=Date.now();save();render();toast('Venta anulada');
+  });
+}
+
+/* ============ Vista: Ajustes ============ */
+function backupData(){
+  S.settings.lastBackup=Date.now();save();
+  download('respaldo-taller-'+dKey(Date.now())+'.json',JSON.stringify(S),'application/json');
+  render();toast('Respaldo descargado. Guárdalo en un lugar seguro.','ok');
+}
+function restoreForm(){
+  const m=modal('Restaurar respaldo',`<p class="msg">Selecciona un archivo de respaldo (.json). <b>Esto reemplaza todos los datos actuales</b> (inventario, ventas y ajustes).</p><input type="file" id="rsFile" accept=".json,application/json" class="inp"><div id="rsPrev" style="margin-top:12px"></div><div class="mfoot"><button class="btn" data-close>Cancelar</button><button class="btn red" id="rsGo" disabled>Restaurar</button></div>`);
+  let data=null;
+  $('#rsFile',m).addEventListener('change',ev=>{
+    const f=ev.target.files[0];if(!f)return;
+    const rd=new FileReader();
+    rd.onload=()=>{
+      try{
+        const o=JSON.parse(rd.result);
+        if(!o||!Array.isArray(o.products)||!Array.isArray(o.sales))throw new Error('x');
+        data=normalizeState(o);
+        $('#rsPrev',m).innerHTML=`<div class="card"><b>${data.products.length}</b> repuestos · <b>${data.sales.length}</b> ventas</div>`;
+        $('#rsGo',m).disabled=false;
+      }catch(_){data=null;$('#rsPrev',m).innerHTML='<div class="err">Ese archivo no es un respaldo válido.</div>';$('#rsGo',m).disabled=true}
+    };
+    rd.readAsText(f);
+  });
+  $('#rsGo',m).addEventListener('click',()=>{if(!data)return;S=data;save();closeModal();view='buscar';render();toast('Respaldo restaurado','ok')});
+}
+function wipeForm(){
+  const m=modal('Borrar todos los datos',`<p class="msg">Se borrarán <b>todos</b> los repuestos, ventas y movimientos de este equipo. Descarga un respaldo antes. Para confirmar escribe <b>BORRAR</b>.</p><input id="wipeIn" class="inp" autocomplete="off"><div class="mfoot"><button class="btn" data-close>Cancelar</button><button class="btn red" id="wipeGo">Borrar todo</button></div>`);
+  $('#wipeGo',m).addEventListener('click',()=>{
+    if($('#wipeIn',m).value.trim().toUpperCase()!=='BORRAR'){toast('Escribe BORRAR para confirmar','err');return}
+    const keep={shop:S.settings.shop,pinHash:S.settings.pinHash,pinDefault:S.settings.pinDefault};
+    S=defaults();Object.assign(S.settings,keep);save();closeModal();view='buscar';render();toast('Datos borrados');
+  });
+}
+function vAjustes(){
+  const lb=S.settings.lastBackup;
+  $('#main').innerHTML=`<section class="wrap">
+    <h2 style="margin-bottom:14px">Ajustes</h2>
+    <div class="cols2">
+      <div class="card"><div class="sec" style="margin:0"><h3>Mi negocio</h3>
+        <form id="fBiz" class="form"><div><label class="lbl" for="bizName">Nombre (sale en el ticket)</label><input id="bizName" name="shop" class="inp" value="${esc(S.settings.shop)}"></div><div><button class="btn red">Guardar nombre</button></div></form></div></div>
+      <div class="card"><div class="sec" style="margin:0"><h3>PIN de administrador</h3>
+        <form id="fPin" class="form"><input name="cur" type="password" inputmode="numeric" class="inp" placeholder="PIN actual" autocomplete="off"><input name="n1" type="password" inputmode="numeric" class="inp" placeholder="Nuevo PIN (mínimo 4 dígitos)" autocomplete="off"><input name="n2" type="password" inputmode="numeric" class="inp" placeholder="Repite el nuevo PIN" autocomplete="off"><div><button class="btn red">Cambiar PIN</button></div></form></div></div>
+    </div>
+    <div class="card sec"><h3>Respaldo de datos</h3>
+      <p class="muted" style="margin-top:0">Todo se guarda en este navegador, en este equipo. Si borras los datos del navegador o cambias de computador, se pierde. Descarga un respaldo cada semana y guárdalo en un USB o en tu correo.<br>Último respaldo: <b style="color:var(--tx)">${lb?dKey(lb)+' '+timeStr(lb):'nunca'}</b></p>
+      <div class="btnrow"><button class="btn red" data-act="backup">${icon('download',16)} Descargar respaldo</button><button class="btn" data-act="restore">${icon('upload',16)} Restaurar respaldo</button><button class="btn" data-act="exportsales">${icon('download',16)} Historial de ventas (CSV)</button></div></div>
+    <div class="card sec"><h3>Zona de peligro</h3><button class="btn" data-act="wipe" style="border-color:var(--red);color:var(--red2)">${icon('trash',16)} Borrar todos los datos</button></div>
+    <p class="muted" style="font-size:13px">${S.products.length} repuestos · ${S.sales.length} ventas · ${S.moves.length} movimientos de stock guardados.</p>
+  </section>`;
+}
+const FORMS={
+  fBiz:f=>requireAdmin(()=>{const n=f.shop.value.trim();if(!n){toast('Escribe un nombre','err');return}S.settings.shop=n;save();renderHeader();toast('Nombre guardado','ok')}),
+  fPin:f=>{
+    if(hashPin(f.cur.value)!==S.settings.pinHash){toast('El PIN actual no es correcto','err');return}
+    if(f.n1.value.length<4){toast('El nuevo PIN debe tener mínimo 4 dígitos','err');return}
+    if(f.n1.value!==f.n2.value){toast('Los PIN nuevos no coinciden','err');return}
+    S.settings.pinHash=hashPin(f.n1.value);S.settings.pinDefault=false;save();f.reset();renderHeader();toast('PIN cambiado','ok');
+  }
+};
+
+/* ============ Eventos globales ============ */
+const ACTIONS={
+  admin:()=>isAdmin()?lockAdmin():requireAdmin(),
+  detail:id=>detailModal(id),
+  addcart:id=>addToCart(id),
+  addcartclose:id=>{addToCart(id);closeModal()},
+  more:()=>{UI.limit+=60;updateBuscar()},
+  chip:(id,el)=>{UI.brand=el.dataset.b||'';UI.limit=60;updateBuscar()},
+  qplus:(id,el)=>{const l=S.cart[+el.dataset.i];if(!l)return;if(l.pid){const p=findP(l.pid);if(p&&l.qty+1>p.stock){toast(`Solo hay ${p.stock} en stock`,'err');return}}l.qty++;save();renderTabs();renderCart()},
+  qminus:(id,el)=>{const i=+el.dataset.i,l=S.cart[i];if(!l)return;l.qty--;if(l.qty<=0)S.cart.splice(i,1);save();renderTabs();renderCart()},
+  cartdel:(id,el)=>{S.cart.splice(+el.dataset.i,1);save();renderTabs();renderCart()},
+  cartclear:()=>{S.cart=[];save();renderTabs();renderCart()},
+  addservice:()=>serviceForm(),
+  pm:(id,el)=>{S.cartMeta.method=el.dataset.m;save();renderCart()},
+  checkout:()=>checkout(),
+  newprod:()=>requireAdmin(()=>productForm()),
+  editprod:id=>requireAdmin(()=>productForm(id)),
+  moveprod:id=>requireAdmin(()=>moveForm(id)),
+  delprod:id=>requireAdmin(()=>deleteProduct(id)),
+  import:()=>requireAdmin(importForm),
+  export:()=>requireAdmin(exportInventory),
+  template:()=>downloadTemplate(),
+  istate:(id,el)=>{UI.istate=el.dataset.s||'';vInventario()},
+  expand:()=>{UI.open=new Set(brandsList().map(b=>norm(b.name)));updateInv()},
+  collapse:()=>{UI.open=new Set();updateInv()},
+  viewsale:id=>{const s=S.sales.find(x=>x.id===id);if(s)ticketModal(s,false)},
+  voidsale:id=>requireAdmin(()=>voidSale(id)),
+  rprev:()=>{UI.rdate=addDays(UI.rdate,-1);vReporte()},
+  rnext:()=>{const n=addDays(UI.rdate,1);if(n<=dKey(Date.now())){UI.rdate=n;vReporte()}},
+  rtoday:()=>{UI.rdate=dKey(Date.now());vReporte()},
+  setdate:(id,el)=>{UI.rdate=el.dataset.d;vReporte()},
+  rprint:()=>printHtml(reportPrintHtml()),
+  rexport:()=>requireAdmin(exportDay),
+  backup:()=>requireAdmin(backupData),
+  restore:()=>requireAdmin(restoreForm),
+  exportsales:()=>requireAdmin(exportAllSales),
+  wipe:()=>requireAdmin(wipeForm)
+};
+document.addEventListener('click',e=>{
+  bumpAdmin();
+  const tb=e.target.closest('[data-view]');
+  if(tb){closeModal();setView(tb.dataset.view);return}
+  const el=e.target.closest('[data-act]');if(!el||el.disabled)return;
+  const fn=ACTIONS[el.dataset.act];if(fn)fn(el.dataset.id,el,e);
+});
+const INPUTS={
+  q:t=>{UI.q=t.value;UI.limit=60;updateBuscar()},
+  onlyAvail:t=>{UI.onlyAvail=t.checked;UI.limit=60;updateBuscar()},
+  pq:t=>{UI.pq=t.value;updatePicker()},
+  disc:t=>{S.cartMeta.discount=parseNum(t.value)||0;saveSoon();updateTotals()},
+  cust:t=>{S.cartMeta.customer=t.value;saveSoon()},
+  plate:t=>{S.cartMeta.plate=t.value.toUpperCase();saveSoon()},
+  recv:t=>{S.cartMeta.received=t.value;saveSoon();updateTotals()},
+  iq:t=>{UI.iq=t.value;updateInv()},
+  ibrand:t=>{UI.ibrand=t.value;updateInv()},
+  igroup:t=>{UI.group=t.checked;updateInv()},
+  rdate:t=>{if(t.value){UI.rdate=t.value;vReporte()}}
+};
+document.addEventListener('input',e=>{const f=INPUTS[e.target.id];if(f)f(e.target,e)});
+document.addEventListener('submit',e=>{const f=FORMS[e.target.id];if(f){e.preventDefault();f(e.target)}});
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')closeModal();
+  if(e.key==='Enter'&&e.target.id==='pq'){
+    e.preventDefault();
+    const q=norm(e.target.value.trim());if(!q)return;
+    const r=searchProducts(UI.pq,{});
+    const pick=r.find(p=>p.sku&&norm(p.sku)===q)||(r.length===1?r[0]:null);
+    if(pick){addToCart(pick.id);UI.pq='';e.target.value='';updatePicker()}
+    else toast('Hay varios resultados: toca el que quieres');
+  }
+});
+
+/* ============ Inicio ============ */
+load();
+render();
+try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(_){}
+})();
+</script>
+</body>
+</html>
